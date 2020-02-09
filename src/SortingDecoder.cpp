@@ -16,6 +16,20 @@ SortingDecoder::SortingDecoder(const Instance& inst_): inst(inst_) {
          }
       }
    }
+
+   // Create the entire assignment order using random keys from chromossome.
+   assert(chromosomeLength() == static_cast<int>(chromosome.size()) &&
+   "Chromossome not long enough to support the sorting procedure.");
+
+   // Pair the task lists with the chromosome keys.
+   initialTasks.resize(chromosomeLength());
+   {
+      vector <Task> tl = createTaskList(inst);
+      for (size_t i = 0; i < tl.size(); ++i) {
+         get<0>(initialTasks[i]) = i/1000.0;
+         get<1>(initialTasks[i]) = tl[i];
+      }
+   }
 }
 
 int SortingDecoder::chromosomeLength() const {
@@ -26,22 +40,16 @@ Solution SortingDecoder::decodeSolution(const std::vector<double> &chromosome) c
    // Solution being build.
    Solution currSol(inst);
 
-   // Create the entire assignment order using random keys from chromossome.
-   assert(chromosomeLength() == static_cast<int>(chromosome.size()) &&
-      "Chromossome not long enough to support the sorting procedure.");
-
    // Pair the task lists with the chromosome keys.
-   vector <tuple<double, Task>> tasks(chromosomeLength());
+   vector <TElem> tasks(initialTasks);
    {
-      vector <Task> tl = createTaskList(inst);
-      for (size_t i = 0; i < tl.size(); ++i) {
+      for (size_t i = 0; i < tasks.size(); ++i) {
          get<0>(tasks[i]) = chromosome[i];
-         get<1>(tasks[i]) = tl[i];
       }
    }
 
    // Sorts the task list according the paired keys.
-   sort(begin(tasks), end(tasks), [] (const tuple<double, Task> &i, const tuple<double, Task> &j) {
+   sort(begin(tasks), end(tasks), [] (const TElem &i, const TElem &j) {
       return get<0>(i) < get<0>(j);
    });
 
