@@ -69,7 +69,7 @@ int main(int argc, char **argv) {
       solver.evolve();
       ++generation;
 
-      if (generation % 50 == 0) {
+      if (generation % 50 == 0 || generation == MAX_GENS) {
          timer.finish();
          cout << "Generation = " << generation << ", best solution =  " << solver.getBestFitness() <<
             ", elapsed time = " << timer.elapsed() << " secs." << endl;

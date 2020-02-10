@@ -1,5 +1,5 @@
 # General information.
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 3.4)
 
 project(gecco2020_brkga)
 
@@ -9,7 +9,7 @@ add_definitions(-Wall -Wextra -std=c++17 -pipe -march=native -mtune=native -Wsha
 # Debug and Release definitions.
 # To set the build mode, specify the value of var `CMAKE_BUILD_TYPE` when
 # running CMake.
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -g -flto=full")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -g")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g")
 
 # Fallback to Debug build type automatically
@@ -28,8 +28,7 @@ add_library(commons
    src/Task.cpp
    src/brkga/Population.cpp
 )
-target_link_libraries(commons gomp)
-
+target_link_libraries(commons gomp -fopenmp)
 
 add_executable(brkga src/mainBrkga.cpp)
 target_link_libraries(brkga commons)
