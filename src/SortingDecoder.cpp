@@ -17,10 +17,6 @@ SortingDecoder::SortingDecoder(const Instance& inst_): inst(inst_) {
       }
    }
 
-   // Create the entire assignment order using random keys from chromossome.
-   assert(chromosomeLength() == static_cast<int>(chromosome.size()) &&
-   "Chromossome not long enough to support the sorting procedure.");
-
    // Pair the task lists with the chromosome keys.
    initialTasks.resize(chromosomeLength());
    {
@@ -39,6 +35,10 @@ int SortingDecoder::chromosomeLength() const {
 Solution SortingDecoder::decodeSolution(const std::vector<double> &chromosome) const {
    // Solution being build.
    Solution currSol(inst);
+
+   // Create the entire assignment order using random keys from chromossome.
+   assert(chromosomeLength() == static_cast<int>(chromosome.size()) &&
+      "Chromossome not long enough to support the sorting procedure.");
 
    // Pair the task lists with the chromosome keys.
    vector <TElem> tasks(initialTasks);
