@@ -21,13 +21,13 @@ Usage: ./brkga  <1:inst path> <2:seed> <3:pop size> <4:num generations> <5:% eli
 
 Following the list of parameters, you need to specify:
 
-- <1: inst path> The path to the instance file to be solved
-- <2: seed> The seed to be set into the Pseudo-RNG
-- <3: pop size> Number of individuals of each generation
-- <4:num generations> Number of generations to evolve
-- <5:% elite> Population percentage of elite individuals
-- <6:% mutant> Population percentage of new mutants
-- <7:% bias inherit elite> Probability to inherit an allele from the elite parent during the mating
+- `<1: inst path>` The path to the instance file to be solved
+- `<2: seed>` The seed to be set into the Pseudo-RNG
+- `<3: pop size>` Number of individuals of each generation
+- `<4:num generations>` Number of generations to evolve
+- `<5:% elite>` Population percentage of elite individuals
+- `<6:% mutant>` Population percentage of new mutants
+- `<7:% bias inherit elite>` Probability to inherit an allele from the elite parent during the mating
 
 __Note__: `<5:% elite> +  <6:% mutant> < 1.0`
 __Note 2__: `<7:% bias inherit elite> < 1.0`
