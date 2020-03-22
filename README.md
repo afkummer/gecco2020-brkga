@@ -8,7 +8,7 @@ To be able to compile the code, you need:
 - A C++17 compiler (clang >= 6.0 should be fine)
 - CMake build system
 
-To build the project, browse to the `build` directory and issue the command `cmake ..` to generate the makefile. By default, CMake is set to generate a debug-friendly application, with all code optimizations disabled and all symbols embedded into the binaries. To change this behavior, run `cmake .. -DCMAKE_BUILD_TYPE=Release`.
+To build the project, browse to the `build` directory and issue the command `cmake ..` to generate the makefile. Then, simply run `make`. By default, CMake is set to generate a debug-friendly application, with all code optimizations disabled and all symbols embedded into the binaries. To change this behavior, run `cmake .. -DCMAKE_BUILD_TYPE=Release`.
 
 ## Running the genetic algorithm
 
