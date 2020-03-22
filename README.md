@@ -30,6 +30,7 @@ Following the list of parameters, you need to specify:
 - `<7:% bias inherit elite>` Probability to inherit an allele from the elite parent during the mating
 
 __Note__: `<5:% elite> +  <6:% mutant> < 1.0`
+
 __Note 2__: `<7:% bias inherit elite> < 1.0`
 
 An example of usage is the following. This example uses 8 threads to decode the individuals. To disable multithreading, set the environment variable `OMP_NUM_THREADS=1`.
@@ -87,5 +88,5 @@ Processing time = 127.88 secs.
 After finishing the running, you may be interest into some of those files:
 
 - `brkga-solutions.csv`: The solver appends to this file. It contais the progress of each execution of the `brkga` binary, with details about the best individual of each generation.
-- `solution.txt`: Contains the best solution found during the search. This file is overwritten on each run of `brkga`. Its format is self-explanatory.
+- `solution.txt`: Contains the best solution found during the search. This file is overwritten on each run of `brkga`
 
