@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.4)
 project(gecco2020_brkga)
 
 include_directories(src)
-add_definitions(-Wall -Wextra -std=c++17 -pipe -march=native -mtune=native -Wshadow -fopenmp)
+add_definitions(-Wall -Wextra -std=c++17 -pipe -march=x86-64 -mtune=generic -Wshadow -fopenmp)
 
 # Debug and Release definitions.
 # To set the build mode, specify the value of var `CMAKE_BUILD_TYPE` when

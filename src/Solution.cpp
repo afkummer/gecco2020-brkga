@@ -165,9 +165,13 @@ void Solution::writeTxt(const char* fname) const {
    }
 
    fid << "# Solution for " << inst.fileName() << "\n";
+   fid << "# Cost = " << cachedCost << " Dist = " << dist << " Tard = " <<
+      tard << " TMax = " << tmax << "\n";
+   fid << "# <vehicle> <route length>\n";
    fid << "# <origin node> <dest node> <vehicle> <service type>\n";
 
    for (int v = 0; v < inst.numVehicles(); ++v) {
+      fid << v << " " << routes[v].size()-1 << "\n";
       for (unsigned pos = 1; pos < routes[v].size(); ++pos) {
          fid << get<0>(routes[v][pos-1]) << ' ';
          fid << get<0>(routes[v][pos]) << ' ';

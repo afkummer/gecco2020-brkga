@@ -133,44 +133,6 @@ Instance::Instance(const char* fname) {
          std::abort();
       }
    }
-
-   // Create personnel data without any heuristic.
-   for (int v = 0; v < numVehicles(); ++v) {
-
-      if (std::accumulate(m_vehicleSkills[v].begin(), m_vehicleSkills[v].begin()+3, 0) > 0) {
-         m_pSkill.push_back(std::vector<int>());
-         for (int s = 0; s < 3; ++s) {
-            if (vehicleHasSkill(v,s)) {
-               m_pSkill.back().push_back(s);
-            }
-         }
-         m_originalV.push_back(v);
-      }
-
-      if (std::accumulate(m_vehicleSkills[v].begin()+3, m_vehicleSkills[v].end(), 0) > 0) {
-         m_pSkill.push_back(std::vector<int>());
-         for (int s = 3; s < 6; ++s) {
-            if (vehicleHasSkill(v,s)) {
-               m_pSkill.back().push_back(s);
-            }
-         }
-         m_originalV.push_back(v);
-      }
-   }
-
-//    for (int p = 0; p < personnelSize(); ++p) {
-//       std::cout << "Skills for caregiver " << p << ": ";
-//       for (int s = 0; s < numSkills(); ++s) {
-//          if (personnelSkill(p, s))
-//             std::cout << s << " ";
-//       }
-//       std::cout << "    Default vehicle: " << personnelDefaultVehicle(p) << std::endl;
-//    }
-//
-//    std::cout << "m_originalV = ";
-//    for (int &v: m_originalV)
-//       std::cout << v << " ";
-//    std::cout << std::endl;
 }
 
 Instance::~Instance() {
@@ -231,19 +193,6 @@ double Instance::nodePosY(int node) const {
 
 double Instance::distance(int fromNode, int toNode) const {
    return m_distances[fromNode][toNode];
-}
-
-int Instance::personnelSize() const {
-   return m_pSkill.size();
-}
-
-int Instance::personnelSkill(int p, int s) const {
-   auto iter = std::find(std::begin(m_pSkill[p]), std::end(m_pSkill[p]), s);
-   return iter != m_pSkill[p].end();
-}
-
-int Instance::personnelDefaultVehicle(int p) const {
-   return m_originalV[p];
 }
 
 const std::string & Instance::fileName() const {
@@ -387,39 +336,4 @@ std::ostream &operator<<(std::ostream &out, const Instance &inst) {
    }
 
    return out;
-}
-
-std::vector<std::vector<std::tuple<int,int>>> readSimpleSolution(const std::string &fname) {
-   std::ifstream fid(fname);
-   if (!fid) {
-      cerr << "File '" << fname << "' could not be open in read mode.\n";
-      abort();
-   }
-   std::vector<std::vector<std::tuple<int,int>>> routes;
-   int size;
-   fid >> size;
-   routes.resize(size);
-   for (auto &r: routes) {
-      fid >> size;
-      r.resize(size);
-      for (auto &i: r) {
-         fid >> get<0>(i) >> get<1>(i);
-      }
-   }
-   return routes;
-}
-
-void writeSimpleSolution(const std::vector<std::vector<std::tuple<int,int>>> &routes, const std::string &fname) {
-   std::ofstream fid(fname);
-   if (!fid) {
-      cerr << "File '" << fname << "' could not be open in write mode.\n";
-      abort();
-   }
-   fid << routes.size() << endl;
-   for (auto &r: routes) {
-      fid << r.size() << endl;
-      for (auto &i: r) {
-         fid << get<0>(i) << ' ' << get<1>(i) << endl;
-      }
-   }
 }

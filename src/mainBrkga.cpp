@@ -79,6 +79,7 @@ int main(int argc, char **argv) {
 
    sol = dec.decodeSolution(solver.getBestChromosome());
    sol.writeTxt("solution.txt");
+   cout << "\nBest solution written to solution.txt\n";
 
    objProgressFid <<
       argv[1] << "," <<
@@ -93,7 +94,7 @@ int main(int argc, char **argv) {
    ;
 
    cout << "Best solution found has objective value = " << sol.cachedCost <<
-      " Processing time = " << timer.elapsed() << " secs.\n";
+      "\nProcessing time = " << timer.elapsed() << " secs.\n";
 
    cout << endl << solver.getBestFitness() << endl;
 

@@ -4,14 +4,13 @@
 #include <vector>
 #include <tuple>
 
-/**
- * @brief Implentation of a instance to HHC problem.
+/*
+ * Implentation of a instance to HHC problem.
  *
  * Conventions:
- * <ul>
- *    <li> Node 0 means depot source </li>
- *    <li> Last node meand depot sink </li>
- * </ul>
+ *    - Node 0 means depot source
+ *    - Last node means depot sink
+ *
  */
 class Instance {
 public:
@@ -46,10 +45,6 @@ public:
    double nodePosY(int node) const;
 
    double distance(int fromNode, int toNode) const;
-   
-   int personnelSize() const;
-   int personnelSkill(int p, int s) const;
-   int personnelDefaultVehicle(int p) const;
 
    const std::string &fileName() const;
 
@@ -78,12 +73,4 @@ private:
    std::vector <std::tuple<double, double>> m_nodePos;
 
    std::vector <std::vector <double>> m_distances;
-
-   // Team designation generated data.
-   std::vector <std::vector<int>> m_pSkill;
-   std::vector <int> m_originalV;
-
 };
-
-std::vector<std::vector<std::tuple<int,int>>> readSimpleSolution(const std::string &fname);
-void writeSimpleSolution(const std::vector<std::vector<std::tuple<int,int>>> &routes, const std::string &fname);
