@@ -1,6 +1,7 @@
 #include "Solution.h"
 
 #include <cassert>
+#include <fstream>
 #include <iostream>
 
 using namespace std;
@@ -13,7 +14,7 @@ Solution::Solution(const Instance& inst_): inst(inst_) {
    vehiPos.resize(inst.numVehicles(), 0);
    for (int v = 0; v < inst.numVehicles(); ++v) {
       routes[v].reserve(inst.numNodes());
-      routes[v].emplace_back(make_tuple(0, -1));
+      routes[v].emplace_back(make_tuple(0, 0));
    }
 
    // And are ready to leave at time 0.
@@ -146,7 +147,7 @@ void Solution::finishRoutes() {
    for (int v = 0; v < inst.numVehicles(); ++v) {
       int lastNode = get<0>(routes[v].back());
       dist += inst.distance(lastNode, 0);
-      routes[v].push_back(make_tuple(0, -1));
+      routes[v].push_back(make_tuple(0, 0));
    }
 
    // Update the solution to take into account the distances on returning to depot.
@@ -156,3 +157,23 @@ void Solution::finishRoutes() {
       COEFS[2] * tmax;
 }
 
+void Solution::writeTxt(const char* fname) const {
+   ofstream fid(fname);
+   if (!fid) {
+      cout << "Solution file '" << fname << "' can not be written." << endl;
+      exit(EXIT_FAILURE);
+   }
+
+   fid << "# Solution for " << inst.fileName() << "\n";
+   fid << "# <origin node> <dest node> <vehicle> <service type>\n";
+
+   for (int v = 0; v < inst.numVehicles(); ++v) {
+      for (unsigned pos = 1; pos < routes[v].size(); ++pos) {
+         fid << get<0>(routes[v][pos-1]) << ' ';
+         fid << get<0>(routes[v][pos]) << ' ';
+         fid << v << ' ';
+         fid << get<1>(routes[v][pos]) << '\n';
+      }
+   }
+
+}

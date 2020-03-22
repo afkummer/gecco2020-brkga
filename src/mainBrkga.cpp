@@ -78,6 +78,7 @@ int main(int argc, char **argv) {
    } while (generation < MAX_GENS);
 
    sol = dec.decodeSolution(solver.getBestChromosome());
+   sol.writeTxt("solution.txt");
 
    objProgressFid <<
       argv[1] << "," <<

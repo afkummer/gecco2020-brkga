@@ -34,5 +34,7 @@ struct Solution {
 
    void finishRoutes();
 
+   void writeTxt(const char *fname) const;
+
 };
 
