@@ -101,6 +101,20 @@ int main(int argc, char **argv) {
          cout << "Generation = " << generation << ", best solution =  " << solver.getBestFitness() <<
             ", elapsed time = " << timer.elapsed() << " secs." << endl;
       }
+   
+      sol = dec.decodeSolution(solver.getBestChromosome());   
+      timer.finish();
+      objProgressFid <<
+         argv[1] << "," <<
+         argv[2] << "," <<
+         generation << "," <<
+         timer.elapsed() << "," <<
+         sol.cachedCost << "," <<
+         sol.dist << "," <<
+         sol.tard << "," <<
+         sol.tmax << "," <<
+         endl
+      ;
 
    } while (generation < MAX_GENS);
 
