@@ -206,5 +206,35 @@ void Solution::writeTxt(const char* fname) const {
          fid << get<1>(routes[v][pos]) << '\n';
       }
    }
+}
+
+void Solution::writeTxt2(const char* fname) const {
+   ofstream fid(fname);
+   if (!fid) {
+      cout << "Solution file '" << fname << "' can not be written." << endl;
+      exit(EXIT_FAILURE);
+   }
+
+   fid << "# Solution for " << inst.fileName() << "\n";
+   fid << "# Cost = " << cachedCost << " Dist = " << dist << " Tard = " <<
+      tard << " TMax = " << tmax << "\n";
+   fid << "# <vehicle> <route length>\n";
+   fid << "# <originx> <originy> <destx> <desty> <service type>\n";
+
+   for (int v = 0; v < inst.numVehicles(); ++v) {
+      fid << v << " " << routes[v].size()-1 << "\n";
+
+      for (unsigned pos = 1; pos < routes[v].size(); ++pos) {
+         int originNode = get<0>(routes[v][pos-1]);
+         int destNode = get<0>(routes[v][pos]);
+         int destSvc = get<1>(routes[v][pos]);
+
+         fid << inst.nodePosX(originNode) << ' ' << inst.nodePosY(originNode) << ' ';
+         fid << inst.nodePosX(destNode) << ' ' << inst.nodePosY(destNode) << ' ';
+         fid << destSvc << endl;
+      }
+   }
 
 }
+
+

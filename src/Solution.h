@@ -62,6 +62,7 @@ struct Solution {
    void finishRoutes();
 
    void writeTxt(const char *fname) const;
+   void writeTxt2(const char *fname) const;
 
 };
 
