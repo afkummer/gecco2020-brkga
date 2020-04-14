@@ -1,0 +1,23 @@
+# Solution for ../instances-HHCRSP/InstanzCPLEX_HCSRP_10_10.txt
+# Cost = 225.006 Dist = 675.018 Tard = 0 TMax = 0
+# <vehicle> <route length>
+# <origin node> <dest node> <vehicle> <service type>
+0 6
+0 2 0 0
+2 4 0 0
+4 7 0 1
+7 9 0 1
+9 10 0 2
+10 0 0 0
+1 5
+0 5 1 4
+5 6 1 4
+6 8 1 4
+8 9 1 4
+9 0 1 0
+2 5
+0 3 2 3
+3 8 2 3
+8 1 2 3
+1 10 2 3
+10 0 2 0
