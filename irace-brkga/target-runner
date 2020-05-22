@@ -49,7 +49,7 @@ error() {
 EXE=../../build/brkga
 
 # Set the number of decoding thread to be used by the BRKGA.
-OMP_NUM_THREADS=1
+OMP_NUM_THREADS=3
 
 # Gives more meaningful names to the script arguments
 CONFIG_ID="$1"
