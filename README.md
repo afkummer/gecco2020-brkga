@@ -38,7 +38,7 @@ The example below shows the output of following the build steps.
 -- Detecting CXX compiler ABI info - done
 -- Detecting CXX compile features
 -- Detecting CXX compile features - done
--- Using compilation flags of mode "Debug"
+-- Using compilation flags of mode "Release"
 -- Configuring done
 -- Generating done
 -- Build files have been written to: /home/alberto/work/gecco2020_brkga/build
