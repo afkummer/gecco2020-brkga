@@ -18,7 +18,7 @@ To build the project, you first need to use the `cmake` utility to generate the 
 
 3. Run `make` to build the binaries. The main executable is called `brkga`.
 
-The example below shows the output of following the build steps.
+The example below shows the output of following the build steps. This example was run on Ubuntu 20.04 by using the clang 10 compiler.
 
 ```bash
 ~/gecco2020-brkga $ cd build
