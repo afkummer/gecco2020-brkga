@@ -18,12 +18,52 @@ To build the project, you first need to use the `cmake` utility to generate the 
 
 3. Run `make` to build the binaries. The main executable is called `brkga`.
 
+The example below shows the output of following the build steps.
+
+```bash
+~/gecco2020-brkga $ cd build
+
+~/gecco2020-brkga/build $ cmake .. -DCMAKE_BUILD_TYPE=Release
+-- The C compiler identification is Clang 10.0.0
+-- The CXX compiler identification is Clang 10.0.0
+-- Check for working C compiler: /usr/bin/clang
+-- Check for working C compiler: /usr/bin/clang -- works
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Check for working CXX compiler: /usr/bin/clang++
+-- Check for working CXX compiler: /usr/bin/clang++ -- works
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Using compilation flags of mode "Debug"
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/alberto/work/gecco2020_brkga/build
+
+~/gecco2020-brkga/build $ make
+Scanning dependencies of target commons
+[ 25%] Building CXX object CMakeFiles/commons.dir/src/SortingDecoder.cpp.o
+[ 25%] Building CXX object CMakeFiles/commons.dir/src/Task.cpp.o
+[ 37%] Building CXX object CMakeFiles/commons.dir/src/brkga/Population.cpp.o
+[ 62%] Building CXX object CMakeFiles/commons.dir/src/Instance.cpp.o
+[ 62%] Building CXX object CMakeFiles/commons.dir/src/Solution.cpp.o
+[ 75%] Linking CXX static library libcommons.a
+[ 75%] Built target commons
+Scanning dependencies of target brkga
+[ 87%] Building CXX object CMakeFiles/brkga.dir/src/mainBrkga.cpp.o
+[100%] Linking CXX executable brkga
+[100%] Built target brkga
+```
+
 ## Running the genetic algorithm
 
 Once compiled, you should be ready to use this implementation of the BRKGA to solve any instance from Mankowska et al. (2014) dataset. If you execute the binary `brkga` without any arguments, it will present you the command line usage.
 
 ```bash
-$./brkga
+$ ./brkga
 Usage: ./brkga  <1:inst path> <2:seed> <3:pop size> <4:num generations> <5:% elite> <6:% mutant> <7:% bias inherit elite>
 ```
 
