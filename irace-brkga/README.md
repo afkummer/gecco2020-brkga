@@ -1,8 +1,8 @@
 ## Tunning BRKGA parameters with the irace package
 
-This directory contains all data files need to runs the calibration of the BRKGA algorithm by using the R package `irace`. All the instructions below suppose you already have the package installed and the `$PATH` configured to allow access to the `irace` script.
+This directory contains all data files you need to run the calibration of the BRKGA algorithm with the R package `irace`. All the instructions below suppose you already have the package installed and the `$PATH` configured to allow access to the `irace` script.
 
-To run the calibration, follow these steps.
+To run the calibration, do the following steps.
 
 1. Copy the instances you want to use as training set from `instances-HHCRSP` to the `irace-brkga/train` directory.
 
