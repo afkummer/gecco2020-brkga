@@ -53,6 +53,8 @@ struct Solution {
 
    Solution(const Instance &inst_);
 
+   Solution(const Solution &other);
+
    Solution &operator=(const Solution &other);
 
    double findInsertionCost(Task &task) const;

@@ -54,6 +54,10 @@ Solution::Solution(const Instance& inst_): inst(inst_) {
    cachedCost = 0.0;
 }
 
+Solution::Solution(const Solution &other): inst(other.inst) {
+   *this = other;
+}
+
 Solution &Solution::operator=(const Solution &other) {
    routes = move(other.routes);
    vehiPos = move(other.vehiPos);

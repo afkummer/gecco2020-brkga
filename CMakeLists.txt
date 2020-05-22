@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.4)
 project(gecco2020_brkga)
 
 include_directories(src)
-add_definitions(-Wall -Wextra -std=c++17 -pipe -march=x86-64 -mtune=generic -Wshadow -fopenmp)
+add_definitions(-Wall -Wextra -std=c++11 -pipe -march=x86-64 -mtune=generic -Wshadow -fopenmp)
 
 # Debug and Release definitions.
 # To set the build mode, specify the value of var `CMAKE_BUILD_TYPE` when
@@ -28,7 +28,7 @@ add_library(commons
    src/Task.cpp
    src/brkga/Population.cpp
 )
-target_link_libraries(commons gomp -fopenmp)
+target_link_libraries(commons -fopenmp)
 
 add_executable(brkga src/mainBrkga.cpp)
 target_link_libraries(brkga commons)

@@ -54,7 +54,7 @@ int main(int argc, char **argv) {
    MTRand rng(std::stoi(argv[2]));
    SortingDecoder dec(inst);
 
-   BRKGA solver(
+   BRKGA <SortingDecoder, MTRand> solver(
       dec.chromosomeLength(), // chromo length
       std::stoi(argv[3]),     // pop size
       std::stod(argv[5]),     // % elite
@@ -101,8 +101,8 @@ int main(int argc, char **argv) {
          cout << "Generation = " << generation << ", best solution =  " << solver.getBestFitness() <<
             ", elapsed time = " << timer.elapsed() << " secs." << endl;
       }
-   
-      sol = dec.decodeSolution(solver.getBestChromosome());   
+
+      sol = dec.decodeSolution(solver.getBestChromosome());
       timer.finish();
       objProgressFid <<
          argv[1] << "," <<

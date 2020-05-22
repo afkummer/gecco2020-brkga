@@ -5,24 +5,29 @@ This repository contains the code of the genetic algorithm presented in [GECCO 2
 ## Building the project
 
 To be able to compile the code, you need:
-- A C++17 compiler (clang >= 6.0 should be fine)
+- A C++11 compiler (clang >= 6 or gcc >= 7 should be fine)
 - CMake build system
+- Make utility
+- OpenMP support, if you plan to use multithreading
 
-On a updated Debian/Ubuntu/Linux Mint installation, you can install those dependencies
-by running `sudo apt install clang++-8 cmake libomp-8-dev`.
+To build the project, you first need to use the `cmake` utility to generate the makefile.
 
-To build the project, browse to the `build` directory and issue the command `cmake ..` to generate the makefile. Then, simply run `make`. By default, CMake is set to generate a debug-friendly binary, with all code optimizations disabled and all symbols embedded. To change this behavior, run `CXX=clang++-8 cmake .. -DCMAKE_BUILD_TYPE=Release` to enable the `-O3` optimization flag.
+1. Browse to the `build` directory and issue the command `cmake ..` to generate the makefile.
+
+2. Then, run `make` to build the project. By default, `cmake` sets compiler flags to generate a debug-friendly binary. To change this behavior, run `cmake` of step (1) with the additional argument `-DCMAKE_BUILD_TYPE=Release`.
+
+3. Run `make` to build the binaries. The main executable is called `brkga`.
 
 ## Running the genetic algorithm
 
-Once compiled, you should be ready to use this implementation of the BRKGA. If you execute the binary `brkga` without any arguments, it will present you the command line usage.
+Once compiled, you should be ready to use this implementation of the BRKGA to solve any instance from Mankowska et al. (2014) dataset. If you execute the binary `brkga` without any arguments, it will present you the command line usage.
 
 ```bash
 $./brkga
 Usage: ./brkga  <1:inst path> <2:seed> <3:pop size> <4:num generations> <5:% elite> <6:% mutant> <7:% bias inherit elite>
 ```
 
-Following the list of parameters, you need to specify:
+Following the parameters list, you need to specify:
 
 - `<1: inst path>` The path to the instance file to be solved
 - `<2: seed>` The seed to be set into the Pseudo-RNG
@@ -36,7 +41,7 @@ __Note__: `<5:% elite> +  <6:% mutant> < 1.0`
 
 __Note 2__: `<7:% bias inherit elite> < 1.0`
 
-An example of usage is the following. This example uses 8 threads to decode the individuals. To disable multithreading, set the environment variable `OMP_NUM_THREADS=1`.
+You can check an example of usage below. This example uses 8 threads to decode the individuals. To disable multithreading, set the environment variable `OMP_NUM_THREADS=1` or remove the OpenMP support on `CMakeLists.txt`.
 
 ```bash
 $ ./brkga ../instances-HHCRSP/InstanzVNS_HCSRP_200_8.txt 2 885 1823 0.20655 0.05408 0.32728
@@ -90,6 +95,5 @@ Processing time = 127.88 secs.
 
 After finishing the running, you may be interest into some of those files:
 
-- `brkga-solutions.csv`: The solver appends to this file. It contais the progress of each execution of the `brkga` binary, with details about the best individual of each generation.
-- `solution.txt`: Contains the best solution found during the search. This file is overwritten on each run of `brkga`
-
+- `brkga-solutions.csv`: The solver appends to this file. It contais the output for each execution of the `brkga` binary, with details about the best individual of each generation.
+- `solution.txt`: Contains the best solution found during the search. This file is overwritten on each run of `brkga`.
