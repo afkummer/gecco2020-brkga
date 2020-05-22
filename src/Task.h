@@ -29,7 +29,6 @@
 
 #include "Instance.h"
 
-
 struct Task {
    Task();
    Task(int node_, int skill1, int skill2 = -1);
