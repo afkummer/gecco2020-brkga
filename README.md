@@ -1,10 +1,10 @@
-## A Biased Random Key Genetic Algorithm applied to the VRPTW with Skill Requirements and Synchronization Constraints
+# A Biased Random Key Genetic Algorithm applied to the VRPTW with Skill Requirements and Synchronization Constraints
 
-This repository contains the code of the genetic algorithm presented in [GECCO 2020 conference](https://gecco-2020.sigevo.org/index.html/HomePage).
+This repository contains the code used in the computational experiments for the article "A Biased Random Key Genetic Algorithm applied to the VRPTW with Skill Requirements and Synchronization Constraints" at the [GECCO 2020 conference](https://gecco-2020.sigevo.org/index.html/HomePage).
 
 ## Building the project
 
-To be able to compile the code, you need:
+To be able to compile the code, you will need:
 - A C++11 compiler (clang >= 6 or gcc >= 7 should be fine)
 - CMake build system
 - Make utility
@@ -14,11 +14,11 @@ To build the project, you first need to use the `cmake` utility to generate the 
 
 1. Browse to the `build` directory and issue the command `cmake ..` to generate the makefile.
 
-2. Then, run `make` to build the project. By default, `cmake` sets compiler flags to generate a debug-friendly binary. To change this behavior, run `cmake` of step (1) with the additional argument `-DCMAKE_BUILD_TYPE=Release`.
+2. Run `make` to build the binaries. The main executable is called `brkga`.
 
-3. Run `make` to build the binaries. The main executable is called `brkga`.
+__Note:__ By default, `cmake` sets compiler flags to generate a debug-friendly binary. To change this behavior, run `cmake` of step (1) with the additional argument `-DCMAKE_BUILD_TYPE=Release`. You can check the current compilation mode following the output line "Using compilation flags of mode" from `cmake`.
 
-The example below shows the output of following the build steps. This example was run on Ubuntu 20.04 by using the clang 10 compiler.
+The example below shows the expected output by following the build steps. This example was run on Ubuntu 20.04 by using the clang 10 compiler.
 
 ```bash
 ~/gecco2020-brkga $ cd build
@@ -81,7 +81,7 @@ __Note__: `<5:% elite> +  <6:% mutant> < 1.0`
 
 __Note 2__: `<7:% bias inherit elite> < 1.0`
 
-You can check an example of usage below. This example uses 8 threads to decode the individuals. To disable multithreading, set the environment variable `OMP_NUM_THREADS=1` or remove the OpenMP support on `CMakeLists.txt`.
+You can check an example of usage below, and its respective output. This example uses 8 threads to decode the individuals. To disable multithreading, set the environment variable `OMP_NUM_THREADS=1` or remove the OpenMP support in `CMakeLists.txt`.
 
 ```bash
 $ ./brkga ../instances-HHCRSP/InstanzVNS_HCSRP_200_8.txt 2 885 1823 0.20655 0.05408 0.32728
@@ -133,7 +133,13 @@ Processing time = 127.88 secs.
 1132.77
 ```
 
-After finishing the running, you may be interest into some of those files:
+After finishing the running, you may be interest in some of those files:
 
 - `brkga-solutions.csv`: The solver appends to this file. It contais the output for each execution of the `brkga` binary, with details about the best individual of each generation.
 - `solution.txt`: Contains the best solution found during the search. This file is overwritten on each run of `brkga`.
+
+## Instance dataset from [Mankowska et al. (2014)](https://link.springer.com/article/10.1007/s10729-013-9243-1)
+
+The instance files from the directory [instances-HHCRSP](instances-HHCRSP) were proposed by [Mankowska et al. (2014)](https://link.springer.com/article/10.1007/s10729-013-9243-1).
+
+This directory contains a mirror of all data from the [original dataset](http://prodlog.wiwi.uni-halle.de/forschung/research_data/hhcrsp/), with a small change in the instance format to ease the reading by the C++ code.
