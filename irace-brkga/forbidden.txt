@@ -29,3 +29,6 @@
 
 
 p_elite + p_mutant > 1.0
+p_elite * popsize <= 0
+p_mutant * popsize <= 0
+

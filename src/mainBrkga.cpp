@@ -40,14 +40,20 @@ using namespace std;
 
 
 int main(int argc, char **argv) {
-   if (argc != 8) {
-      cout << "Usage: " << argv[0] << "  <1:inst path> <2:seed> <3:pop size> <4:num generations> <5:% elite> <6:% mutant> <7:% bias inherit elite>" << endl;
+   if (argc != 10) {
+      cout << "Usage: " << argv[0] << "  <1:inst path> <2:seed> <3:pop size> <4:num generations> <5:% elite> <6:% mutant> <7:% bias inherit elite> <8:iter w/o restart> <9:tol for improvement>" << endl;
       return EXIT_FAILURE;
    }
+
+   const int itersNoImproving = stoi(argv[8]);
+   const double improvingTol = stod(argv[9]);
 
    cout << "=== BRKGA-based solver for the HHCRSP ===\n" <<
       "Instance: " << argv[1] <<
       "\nSeed: " << argv[2] << endl;
+
+   cout << "Iterations without improvement prior restarting: " << itersNoImproving << "\n";
+   cout << "Improvement tolerance: " << improvingTol << "\n";
 
    Instance inst(argv[1]);
 
@@ -91,15 +97,21 @@ int main(int argc, char **argv) {
    int generation = 0;
    const int MAX_GENS = std::stoi(argv[4]);
 
+   int lastImprGen = 0;
+   double lastImprValue = 1e6;
+   double bestSolEver = 1e6;
+
    timer.start();
+   string prefix = "";
    do {
       solver.evolve();
       ++generation;
 
       if (generation % 50 == 0 || generation == MAX_GENS) {
          timer.finish();
-         cout << "Generation = " << generation << ", best solution =  " << solver.getBestFitness() <<
+         cout << prefix << "Generation = " << generation << ", best solution =  " << solver.getBestFitness() <<
             ", elapsed time = " << timer.elapsed() << " secs." << endl;
+         prefix = "";
       }
 
       sol = dec.decodeSolution(solver.getBestChromosome());
@@ -115,6 +127,22 @@ int main(int argc, char **argv) {
          sol.tmax << "," <<
          endl
       ;
+      bestSolEver = min(bestSolEver, sol.cachedCost);
+
+      if (itersNoImproving > 0) {
+         double impr = (lastImprValue - sol.cachedCost)/lastImprValue;
+         if (impr > improvingTol) {
+            lastImprGen = generation;
+            lastImprValue = sol.cachedCost;
+         } else {
+            if (generation - lastImprGen >= itersNoImproving) {
+               prefix = "R ";
+               lastImprGen = generation;
+               lastImprValue = 1e6;
+               solver.reset();               
+            }
+         }
+      }
 
    } while (generation < MAX_GENS);
 
@@ -134,10 +162,10 @@ int main(int argc, char **argv) {
       endl
    ;
 
-   cout << "Best solution found has objective value = " << sol.cachedCost <<
+   cout << "Best solution found has objective value = " << bestSolEver <<
       "\nProcessing time = " << timer.elapsed() << " secs.\n";
 
-   cout << endl << solver.getBestFitness() << endl;
+   cout << endl << bestSolEver << endl;
 
    return EXIT_SUCCESS;
 }
