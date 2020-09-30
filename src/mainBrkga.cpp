@@ -102,7 +102,7 @@ int main(int argc, char **argv) {
    double bestSolEver = 1e6;
 
    timer.start();
-   string prefix = "";
+   string prefix = "  ";
    do {
       solver.evolve();
       ++generation;
@@ -111,7 +111,7 @@ int main(int argc, char **argv) {
          timer.finish();
          cout << prefix << "Generation = " << generation << ", best solution =  " << solver.getBestFitness() <<
             ", elapsed time = " << timer.elapsed() << " secs." << endl;
-         prefix = "";
+         prefix = "  ";
       }
 
       sol = dec.decodeSolution(solver.getBestChromosome());
